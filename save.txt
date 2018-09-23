@@ -1,0 +1,17 @@
+String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("insert into database.staff_list (staffID,Name,Gender,position,Age,Status,Address,ContactNo,JoiningDate) values('" + this->id_txt->Text + "','" + this->name_txt->Text + "','" + this->gender_txt->Text + "','" + this->position_txt->Text + "','" + this->age_txt->Text + "','" + this->status_txt->Text + "','" + this->address_txt->Text + "','" + this->contact_txt->Text + "','" + this->date_txt->Text + "');", conDataBase);
+		MySqlDataReader^myReader;
+		try {
+			conDataBase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+			MessageBox::Show("Saved");
+			while (myReader->Read())
+			{
+
+			}
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+		}
+		

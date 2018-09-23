@@ -1,0 +1,37 @@
+String^ comboval = comboBox1->Text;
+		String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("select*from database.staff_list where Name='"+ comboval +"';", conDataBase);
+		MySqlDataReader^myReader;
+		try {
+			conDataBase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+
+			if(myReader->Read())
+			{
+				String^ staffIDVal = myReader->GetInt32("staffID").ToString();
+				id_txt->Text = staffIDVal;
+				String^ NameVal = myReader->GetString("Name");
+				name_txt->Text = NameVal;
+				String^ GenderVal = myReader->GetString("Gender");
+				gender_txt->Text = GenderVal;
+				String^ PositionVal = myReader->GetString("Position");
+				position_txt->Text = PositionVal;
+				String^ ContactNoVal = myReader->GetString("ContactNo");
+				contact_txt->Text = ContactNoVal;
+				String^ AgeVal = myReader->GetString("Age");
+				age_txt->Text = AgeVal;
+				String^ StatusVal = myReader->GetString("Status");
+				status_txt->Text = StatusVal;
+				String^ JoiningDateVal = myReader->GetString("JoiningDate");
+				date_txt->Text = JoiningDateVal;
+				String^ AddressVal = myReader->GetString("Address");
+				address_txt->Text = AddressVal;
+				
+			}
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+
+
+		}

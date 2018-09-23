@@ -1,0 +1,29 @@
+String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("select * from database.username where username='" + this->username_txt->Text + "' and password='" + this->password_txt->Text + "';", conDataBase);
+		MySqlDataReader^myReader;
+		try {
+			conDataBase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+			int count = 0;
+			while (myReader->Read()) {
+				count = count + 1;
+			}
+			if (count == 1) {
+				MessageBox::Show("Username and password is corrext");
+				this->Hide();
+				third_form^ f3 = gcnew third_form();
+				f3->ShowDialog();
+			}
+			else if (count > 1) {
+				MessageBox::Show("Username and password is Duplicate....acess denied");
+			}
+			else {
+				MessageBox::Show("Username and Password is not correct...Try again");
+			}
+
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+		}
+

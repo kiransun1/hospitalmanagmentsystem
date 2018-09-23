@@ -1,0 +1,20 @@
+		String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("select FirstName,LastName,MiddleName,PrimaryNo,SecondaryNo,Age,Gender,Address,Email,Concern from database.patient_list ;", conDataBase);
+		MySqlDataReader^ myReader;
+		try {
+			MySqlDataAdapter ^sda = gcnew MySqlDataAdapter();
+			sda->SelectCommand = cmdDataBase;
+			DataTable^dbdataset = gcnew DataTable();
+			sda->Fill(dbdataset);
+			BindingSource^ bSource = gcnew BindingSource();
+
+			bSource->DataSource = dbdataset;
+			dataGridView1->DataSource = bSource;
+			sda->Update(dbdataset);
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+		}
+
+	}

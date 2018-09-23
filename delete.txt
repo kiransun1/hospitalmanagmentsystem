@@ -1,0 +1,15 @@
+String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("Delete from database.staff_list where staffID='" + this->id_txt->Text + "';", conDataBase);
+		MySqlDataReader^myReader;
+		try {
+			conDataBase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+			MessageBox::Show("Deleted");
+			while (myReader->Read()) {
+
+			}
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+		}

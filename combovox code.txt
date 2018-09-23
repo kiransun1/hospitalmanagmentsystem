@@ -1,0 +1,23 @@
+private: void Fillcombo(void)
+	{
+		String^ constring = L"datasource=localhost;port=3306;username=root;password=thaxinamalai";
+		MySqlConnection^ conDataBase = gcnew MySqlConnection(constring);
+		MySqlCommand^ cmdDataBase = gcnew MySqlCommand("select*from database.staff_list;", conDataBase);
+		MySqlDataReader^myReader;
+		try {
+			conDataBase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+
+			while (myReader->Read())
+			{
+				String^vName;
+				vName = myReader->GetString("Name");
+				comboBox1->Items->Add(vName);
+			}
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+	
+
+		}
+	}
